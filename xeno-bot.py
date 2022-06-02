@@ -31,7 +31,8 @@ async def send_hello(ctx):
     await ctx.send(response);
 
 @bot.command(name = "calcular")
-async def calculate_expression(ctx, expression):
+async def calculate_expression(ctx,*expression):
+    expression = "".join(expression);
     response = eval(expression);
 
     await ctx.send(str(response) + ", é isso?");
