@@ -1,11 +1,15 @@
+import datetime
 import discord
-from discord.ext import commands; 
+from discord.ext import commands, tasks; 
 
 bot = commands.Bot("!");
 
 @bot.event
 async def on_ready():
     print("... Bom dia?!");
+    current_time.start();
+
+
 
 # @bot.event
 # async def on_message():
@@ -26,4 +30,19 @@ async def send_hello(ctx):
     response = "Fala pra mim, " + name;
     await ctx.send(response);
 
-bot.run("OTgxNjIwMDI5OTAyNzAwNTk0.GqBf51.zrGh9gs8VFiXf8PBIOunbv1JA3zOYpNSoyFdIo");
+@bot.command(name = "calcular")
+async def calculate_expression(ctx, expression):
+    response = eval(expression);
+
+    await ctx.send(str(response) + ", é isso?");
+
+@tasks.loop(hours=1)
+async def current_time():
+    now = datetime.datetime.now();
+    now = now.strftime("%d/%m/%Y às %H:%M");
+
+    channel = bot.get_channel(0000000000000000);
+
+    await channel.send("Data atual: " + now);
+
+bot.run("000000kjsdfjs000000kask000");
